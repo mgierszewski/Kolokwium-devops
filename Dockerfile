@@ -13,11 +13,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ ./app/
 
-# Ustawienie nie-rootowego użytkownika
-RUN useradd -m appuser
+
+# Ustawienie nie-rootowego użytkownika i uprawnień do katalogu /data
+RUN useradd -m appuser \
+    && mkdir -p /data \
+    && chown appuser:appuser /data
 USER appuser
 
-EXPOSE 8080
+EXPOSE 8000
 
-# Komenda startowa (gunicorn, WSGI, port 8080, katalog app)
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "app.main:app"]
+# Komenda startowa (gunicorn, WSGI, port 8000, katalog app)
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app.main:app"]

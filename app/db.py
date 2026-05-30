@@ -2,7 +2,7 @@ import os
 import sqlite3
 import threading
 
-DB_PATH = os.environ.get("DB_PATH", "/data/app.db")
+DB_PATH = os.environ.get("DB_PATH", "./data/app.db")
 _lock = threading.Lock()
 
 
